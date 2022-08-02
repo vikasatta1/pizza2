@@ -1,0 +1,33 @@
+[
+  {
+    "id":0,
+    "imageUrl":"https://cdn.dodostatic.net/static/Img/Products/3276e81cd3324f5cb587b16af8ff884a_366x366.jpeg",
+    "name":"Пепперони",
+    "types":[0,1],
+    "sizes":[26,30,40],
+    "price":0,
+    "category":0,
+    "rating":4
+  },
+  {
+    "id":1,
+    "imageUrl":"https://cdn.dodostatic.net/static/Img/Products/711b5f74b1ad419f9c4e61784474fa1d_366x366.jpeg",
+    "name":"Четыре сезона",
+    "types":[0],
+    "sizes":[26,30,40],
+    "price":445345,
+    "category":0,
+    "rating":4
+  },
+  {
+    "id":2,
+    "imageUrl":"https://cdn.dodostatic.net/static/Img/Products/6ccbddae9cc64a3080a07d1619f941d3_366x366.jpeg",
+    "name":"Домашняя",
+    "types":[0,1],
+    "sizes":[26,40],
+    "price":257,
+    "category":0,
+    "rating":5
+  }
+
+]
