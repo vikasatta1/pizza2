@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Bottom from "./Bottom";
+import Bottom from "../Bottom";
 
 
 type PizzaCardPropsType = {
