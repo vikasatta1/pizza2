@@ -21,33 +21,35 @@ const PizzaBlock = ({title, price, imageUrl, sizes, types}: PizzaCardPropsType) 
 
 
     return (
-        <div className="pizza-block">
-            <img
-                className="pizza-block__image"
-                src={imageUrl}
-                alt="Pizza"
-            />
-            <h4 className="pizza-block__title">{title}</h4>
-            <div className="pizza-block__selector">
-                <ul>
-                    {
-                        types.map(t => (
-                            <li key={t} className={dough === typesName[t] ? 'active' : ''}
-                                onClick={() => setDough(typesName[t])}>{typesName[t]}</li>
-                        ))
-                    }
-                </ul>
-                <ul>
-                    {sizes.map(s => (
-                        <li key={s} className={size === s ? 'active' : ''}
-                            onClick={() => setSize(s)}>{s} см.</li>
-                    ))}
+        <div className={'pizza-block-wrapper'}>
+            <div className="pizza-block">
+                <img
+                    className="pizza-block__image"
+                    src={imageUrl}
+                    alt="Pizza"
+                />
+                <h4 className="pizza-block__title">{title}</h4>
+                <div className="pizza-block__selector">
+                    <ul>
+                        {
+                            types.map(t => (
+                                <li key={t} className={dough === typesName[t] ? 'active' : ''}
+                                    onClick={() => setDough(typesName[t])}>{typesName[t]}</li>
+                            ))
+                        }
+                    </ul>
+                    <ul>
+                        {sizes.map(s => (
+                            <li key={s} className={size === s ? 'active' : ''}
+                                onClick={() => setSize(s)}>{s} см.</li>
+                        ))}
 
-                </ul>
-            </div>
-            <div className="pizza-block__bottom">
-                <div className="pizza-block__price">от {price} руб.</div>
-                <Bottom countPlus={countPlus} count={pizzaCount}/>
+                    </ul>
+                </div>
+                <div className="pizza-block__bottom">
+                    <div className="pizza-block__price">от {price} руб.</div>
+                    <Bottom countPlus={countPlus} count={pizzaCount}/>
+                </div>
             </div>
         </div>
     );

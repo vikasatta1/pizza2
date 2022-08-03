@@ -26,10 +26,11 @@ const Home = () => {
             .then((res) => res.json())
             .then((data) => setPizza(data))
             .finally(() => setISLoading(false))
+        window.scrollTo(0, 0)
     }, [])
 
     return (
-        <>
+        <div className="container">
             <div className="content__top">
                 <Categories/>
                 <Sort/>
@@ -42,8 +43,8 @@ const Home = () => {
                         < PizzaBlock {...pizza} key={pizza.id}/>
                     ))}
             </div>
-            
-        </>
+
+        </div>
     );
 };
 
