@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
+type CategoriesType ={
+    value:number
+    onChangeCategory:(i:number)=>void
+}
 
-const Categories = () => {
-    const [categories,setCategories] = useState<string>('')
+const Categories = ({value,onChangeCategory}:CategoriesType) => {
 
-    const categoriesForMap = [
-        {name:'Все'},
-        {name:'Мясные'},
-        {name:'Вегетарианская'},
-        {name:'Гриль'},
-        {name:'Острые'},
-        {name:'Закрытые'},
-    ]
+
+    const categoriesForMap = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые',]
     return (
         <div className="categories">
             <ul>
-                {categoriesForMap.map(c => (
-                    <li className={categories === c.name ? 'active' : '' } onClick={()=>setCategories(c.name)} key={c.name}>{c.name}</li>
+                {categoriesForMap.map((categoryName,i) => (
+                    <li key={i}
+                        className={value === i ? 'active' : '' }
+                        onClick={()=>onChangeCategory(i)}
+                    >{categoryName}</li>
                 ))}
             </ul>
         </div>

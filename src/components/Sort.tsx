@@ -1,13 +1,24 @@
 import React, {useState} from 'react';
+import {sortValueType} from "../pages/Home";
 
-const Sort = () => {
+
+type SortPropsType = {
+    value: sortValueType
+    onChangeSort: (i: sortValueType) => void
+}
+const Sort = ({value, onChangeSort}: SortPropsType) => {
     const [sort, setSort] = useState<boolean>(false)
-    const [sortActiveClass, setSortActiveClass] = useState<string>('популярности')
-    const list = ['популярности', 'цене', 'алфавиту']
-    const onClilListItem = (li:string) => {
-        setSortActiveClass(li)
+    const list = [
+        {name: 'популярности', sortProperty: 'rating'},
+        {name: 'цене', sortProperty: 'price'},
+        {name: 'алфавиту', sortProperty: 'title'}
+    ]
+
+    const onClilListItem = (li: sortValueType) => {
+        onChangeSort(li)
         setSort(false)
     }
+
     return (
         <div className="sort">
             <div className="sort__label">
@@ -24,16 +35,18 @@ const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setSort(!sort)}>{sortActiveClass}</span>
+                <span onClick={() => setSort(!sort)}>{value.name}</span>
             </div>
             {
                 sort &&
                 <div className="sort__popup">
                     <ul>
                         {
-                            list.map(li => (
-                                <li key={li} className={sortActiveClass === li ? "active" : ''}
-                                    onClick={() => onClilListItem(li)}>{li}
+                            list.map((obj, i) => (
+                                <li key={i}
+                                    className={value.sortProperty === obj.sortProperty ? "active" : ''}
+                                    onClick={() => onClilListItem(obj)}>
+                                    {obj.name}
                                 </li>
                             ))
                         }
