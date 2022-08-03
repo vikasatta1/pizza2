@@ -3,14 +3,14 @@ import Bottom from "./Bottom";
 
 
 type PizzaCardPropsType = {
-    name: string,
+    title: string,
     price: number
     imageUrl: string
     sizes: Array<number>
     types: Array<number>
 }
 
-const PizzaBlock = ({name, price, imageUrl, sizes, types}: PizzaCardPropsType) => {
+const PizzaBlock = ({title, price, imageUrl, sizes, types}: PizzaCardPropsType) => {
     const typesName = ["тонкое", "традиционное"]
     const [size, setSize] = useState<number>(0)
     const [dough, setDough] = useState<string>('')
@@ -27,7 +27,7 @@ const PizzaBlock = ({name, price, imageUrl, sizes, types}: PizzaCardPropsType) =
                 src={imageUrl}
                 alt="Pizza"
             />
-            <h4 className="pizza-block__title">{name}</h4>
+            <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
                     {

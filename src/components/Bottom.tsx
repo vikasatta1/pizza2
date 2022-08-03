@@ -3,6 +3,7 @@ type BottomProps = {
     count:number
     countPlus:()=>void
 }
+
 const Bottom = ({count,countPlus}:BottomProps) => {
     return (
         <div className="button button--outline button--add" onClick={countPlus}>
