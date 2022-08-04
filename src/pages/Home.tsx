@@ -53,12 +53,13 @@ const Home = ({searchValue}:HomePropsType) => {
         const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
         const sortBy = sortType.sortProperty.replace('-', '');
         const category =  categoryId > 0 ? `category=${categoryId}` : '';
-        fetch(`https://626d16545267c14d5677d9c2.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`)
+        const search =  searchValue  ? `&search=${searchValue}` : '';
+        fetch(`https://626d16545267c14d5677d9c2.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`)
             .then((res) => res.json())
             .then((data) => setPizza(data))
             .finally(() => setISLoading(false))
         window.scrollTo(0, 0)
-    }, [categoryId, sortType])
+    }, [categoryId, sortType,searchValue])
 
     return (
         <div className="container">
