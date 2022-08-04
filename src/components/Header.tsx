@@ -1,8 +1,12 @@
-import React from 'react';
+import React,{ChangeEvent, Dispatch, SetStateAction} from 'react';
 import {Link} from "react-router-dom";
+import SearchInput from './Search/Search';
 
-
-const Header = () => {
+type HeaderPropsType = {
+    searchValue:string
+    setSearchValue:Dispatch<SetStateAction<string>>
+}
+const Header = ({searchValue,setSearchValue}:HeaderPropsType) => {
     return (
         <div className="header">
             <div className="container">
@@ -15,6 +19,7 @@ const Header = () => {
                         </div>
                     </div>
                 </Link>
+                <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
                 <div className="header__cart">
                     <Link to="/cart" className="button button--cart">
                         <span>520 ₽</span>
