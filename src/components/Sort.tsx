@@ -9,7 +9,8 @@ type SortPropsType = {
 const Sort = ({value, onChangeSort}: SortPropsType) => {
     const [sort, setSort] = useState<boolean>(false)
     const list = [
-        {name: 'популярности', sortProperty: 'rating'},
+        {name: 'популярности (DESC)', sortProperty: 'rating'},
+        {name: 'популярности (ASC)', sortProperty: 'rating'},
         {name: 'цене', sortProperty: 'price'},
         {name: 'алфавиту', sortProperty: 'title'}
     ]
