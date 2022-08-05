@@ -1,10 +1,8 @@
-import React,{ChangeEvent, Dispatch, SetStateAction} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
 import SearchInput from './Search/Search';
 
-type HeaderPropsType = {
 
-}
 const Header = () => {
     return (
         <div className="header">
