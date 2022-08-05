@@ -3,10 +3,9 @@ import {Link} from "react-router-dom";
 import SearchInput from './Search/Search';
 
 type HeaderPropsType = {
-    searchValue:string
-    setSearchValue:Dispatch<SetStateAction<string>>
+
 }
-const Header = ({searchValue,setSearchValue}:HeaderPropsType) => {
+const Header = () => {
     return (
         <div className="header">
             <div className="container">
@@ -19,7 +18,7 @@ const Header = ({searchValue,setSearchValue}:HeaderPropsType) => {
                         </div>
                     </div>
                 </Link>
-                <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
+                <SearchInput />
                 <div className="header__cart">
                     <Link to="/cart" className="button button--cart">
                         <span>520 ₽</span>

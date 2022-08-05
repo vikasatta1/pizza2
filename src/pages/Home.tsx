@@ -3,9 +3,10 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import SkeletonPizzaBlock from "../components/pizzaBlock/SkeletonPizzaBlock";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
+import Pagination from '../components/Pagination/Pagination';
+import { SearchContext } from '../App';
 
 export type ResponsePizzaType = {
-
     category: number
     id: string
     imageUrl: string
@@ -15,14 +16,14 @@ export type ResponsePizzaType = {
     title: string
     types: Array<number>
 }
-type HomePropsType={
-    searchValue:string
-}
-export type sortValueType = { name: string, sortProperty: string }
-const Home = ({searchValue}:HomePropsType) => {
-    const fakePizza = [...new Array(10)]
 
-    const [isLoading, setISLoading] = useState(false)
+export type sortValueType = { name: string, sortProperty: string }
+const Home = () => {
+//@ts-ignore
+    const {searchValue} = React.useContext(SearchContext)
+    const fakePizza = [...new Array(10)]
+    const [isLoading, setISLoading] = useState<boolean>(false)
+    const [currentPage, setCurrentPage] = useState(1)
     const [pizza, setPizza] = useState<Array<ResponsePizzaType>>([])
     const [categoryId, setCategoryId] = useState(0)
     const [sortType, setSortType] = useState<sortValueType>({
@@ -45,8 +46,6 @@ const Home = ({searchValue}:HomePropsType) => {
     const onClickCategory = (i: number) => {
         setCategoryId(i)
     }
-
-
     useEffect(() => {
         setISLoading(true)
 
@@ -54,12 +53,12 @@ const Home = ({searchValue}:HomePropsType) => {
         const sortBy = sortType.sortProperty.replace('-', '');
         const category =  categoryId > 0 ? `category=${categoryId}` : '';
         const search =  searchValue  ? `&search=${searchValue}` : '';
-        fetch(`https://626d16545267c14d5677d9c2.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`)
+        fetch(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
             .then((res) => res.json())
             .then((data) => setPizza(data))
             .finally(() => setISLoading(false))
         window.scrollTo(0, 0)
-    }, [categoryId, sortType,searchValue])
+    }, [categoryId, sortType,searchValue,currentPage])
 
     return (
         <div className="container">
@@ -73,7 +72,7 @@ const Home = ({searchValue}:HomePropsType) => {
             <div className="content__items">
                 {isLoading ? fakeMapPizzas : pizzas}
             </div>
-
+            <Pagination onChangePage={(num:any)=>setCurrentPage(num)}/>
         </div>
     );
 };

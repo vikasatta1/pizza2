@@ -1,4 +1,6 @@
-import React, {useState, ChangeEvent, Dispatch, SetStateAction} from 'react';
+import React, {useState, ChangeEvent, Dispatch, SetStateAction, useContext} from 'react';
+import { SearchContext } from '../../App';
+
 //@ts-ignore
 import styles from './Search.module.scss'
 
@@ -6,8 +8,9 @@ type SearchInputPropsType = {
     searchValue: string
     setSearchValue: Dispatch<SetStateAction<string>>
 }
-const SearchInput = ({searchValue, setSearchValue}: SearchInputPropsType) => {
-
+const SearchInput = () => {
+//@ts-ignore
+const {searchValue,setSearchValue} = React.useContext(SearchContext)
 
     return (
         <div className={styles.root}>
@@ -57,3 +60,4 @@ const SearchInput = ({searchValue, setSearchValue}: SearchInputPropsType) => {
 };
 
 export default SearchInput;
+
