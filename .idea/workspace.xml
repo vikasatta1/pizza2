@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd37373-cbc1-4887-9fbf-ef99c63b02ae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/redux/store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/slices/cartSlice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/slices/filterSlice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/slices/pizzaSlice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Search/Search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Search/Search.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Categories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sort.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sort.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +45,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../portfolio/my-portfolio" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/redux/slices" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -56,6 +57,9 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\trainee\pizza\src\redux\slices" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\trainee\pizza\src\components\pizzaBlock" />
     </key>
@@ -90,7 +94,8 @@
       <workItem from="1659609337049" duration="7201000" />
       <workItem from="1659623583720" duration="3788000" />
       <workItem from="1659642360513" duration="3518000" />
-      <workItem from="1659688829159" duration="14395000" />
+      <workItem from="1659688829159" duration="14865000" />
+      <workItem from="1659807332239" duration="8579000" />
     </task>
     <task id="LOCAL-00001" summary="useEffect,Skeleton">
       <created>1659528831278</created>
@@ -155,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659715756808</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="redux">
+      <created>1659736816677</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1659736816677</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +181,7 @@
     <MESSAGE value="filter sort" />
     <MESSAGE value="search" />
     <MESSAGE value="context" />
-    <option name="LAST_COMMIT_MESSAGE" value="context" />
+    <MESSAGE value="redux" />
+    <option name="LAST_COMMIT_MESSAGE" value="redux" />
   </component>
 </project>

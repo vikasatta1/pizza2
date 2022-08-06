@@ -1,20 +1,20 @@
 import React from 'react';
-type CategoriesType ={
-    value:number
-    onChangeCategory:(i:number)=>void
-}
-
-const Categories = ({value,onChangeCategory}:CategoriesType) => {
+import {useDispatch, useSelector} from 'react-redux';
+import {setCategoryId} from '../redux/slices/filterSlice';
+import {RootState} from '../redux/store';
 
 
+const Categories = () => {
+    const dispatch = useDispatch()
+    const categoryId = useSelector((state: RootState) => state.filter.categoryId)
     const categoriesForMap = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые',]
     return (
         <div className="categories">
             <ul>
-                {categoriesForMap.map((categoryName,i) => (
+                {categoriesForMap.map((categoryName, i) => (
                     <li key={i}
-                        className={value === i ? 'active' : '' }
-                        onClick={()=>onChangeCategory(i)}
+                        className={categoryId === i ? 'active' : ''}
+                        onClick={() => dispatch(setCategoryId(i))}
                     >{categoryName}</li>
                 ))}
             </ul>

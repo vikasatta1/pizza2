@@ -12,8 +12,6 @@ export const SearchContext = React.createContext();
 
 function App() {
     const [searchValue,setSearchValue] = useState('')
-
-
     return (
         <div className="wrapper">
            < SearchContext.Provider value={{searchValue,setSearchValue}}>
@@ -22,10 +20,8 @@ function App() {
                     <Routes>
                         <Route path={''} element={<Home/>}/>
                         <Route path={'/cart'} element={<Cart/>}/>
-
                         <Route path={'*'} element={<NotFoundBlock/>}/> {/* если ничего не нашел*/}
                     </Routes>
-
             </div>
            </SearchContext.Provider>
         </div>
