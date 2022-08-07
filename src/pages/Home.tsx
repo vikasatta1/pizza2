@@ -5,8 +5,10 @@ import SkeletonPizzaBlock from "../components/pizzaBlock/SkeletonPizzaBlock";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Pagination from '../components/Pagination/Pagination';
 import {SearchContext} from '../App';
-import { useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
+import axios from "axios";
+import {setCurrentPage} from "../redux/slices/filterSlice";
 
 export type ResponsePizzaType = {
     category: number
@@ -21,8 +23,9 @@ export type ResponsePizzaType = {
 
 
 const Home = () => {
+    const dispatch = useDispatch()
     //useSelectors
-    const {sort,categoryId} = useSelector((state: RootState) => state.filter)
+    const {sort, categoryId, currentPage} = useSelector((state: RootState) => state.filter)
     const sortType = sort.sortProperty
 
 
@@ -32,7 +35,7 @@ const Home = () => {
 
     //useState
     const [isLoading, setISLoading] = useState<boolean>(false)
-    const [currentPage, setCurrentPage] = useState(1)
+    /*const [currentPage, setCurrentPage] = useState(1)*/
     const [pizza, setPizza] = useState<Array<ResponsePizzaType>>([])
 
 
@@ -44,7 +47,7 @@ const Home = () => {
     }).map(pizza => (< PizzaBlock {...pizza} key={pizza.id}/>))
 
     const fakeMapPizzas = fakePizza.map((_, i) => <SkeletonPizzaBlock key={i}/>)
-
+    const onChangePagination = (num: any) => dispatch(setCurrentPage(num))
     useEffect(() => {
         setISLoading(true)
 
@@ -52,9 +55,8 @@ const Home = () => {
         const sortBy = sortType.replace('-', '');
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const search = searchValue ? `&search=${searchValue}` : '';
-        fetch(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
-            .then((res) => res.json())
-            .then((data) => setPizza(data))
+        axios.get(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+            .then((res) => setPizza(res.data))
             .finally(() => setISLoading(false))
         window.scrollTo(0, 0)
     }, [categoryId, sortType, searchValue, currentPage])
@@ -69,7 +71,7 @@ const Home = () => {
             <div className="content__items">
                 {isLoading ? fakeMapPizzas : pizzas}
             </div>
-            <Pagination onChangePage={(num: any) => setCurrentPage(num)}/>
+            <Pagination currentPage={currentPage} onChangePage={onChangePagination}/>
         </div>
     );
 };
