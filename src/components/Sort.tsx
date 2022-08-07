@@ -6,7 +6,7 @@ import {RootState} from '../redux/store';
 
 type sortValueType = { name: string, sortProperty: string }
 
-const list = [
+export const sortList = [
     {name: 'популярности (DESC)', sortProperty: 'rating'},
     {name: 'популярности (ASC)', sortProperty: '-rating'},
     {name: 'цене (DESC)', sortProperty: 'price'},
@@ -45,7 +45,7 @@ const Sort = () => {
                 <div className="sort__popup">
                     <ul>
                         {
-                            list.map((obj, i) => (
+                            sortList.map((obj, i) => (
                                 <li key={i}
                                     className={sortValue.sortProperty === obj.sortProperty ? "active" : ''}
                                     onClick={() => onClilListItem(obj)}>
