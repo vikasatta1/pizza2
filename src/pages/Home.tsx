@@ -5,8 +5,7 @@ import SkeletonPizzaBlock from "../components/pizzaBlock/SkeletonPizzaBlock";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Pagination from '../components/Pagination/Pagination';
 import {SearchContext} from '../App';
-import {useDispatch, useSelector} from 'react-redux';
-import {setCategoryId} from '../redux/slices/filterSlice';
+import { useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
 
 export type ResponsePizzaType = {
@@ -22,7 +21,6 @@ export type ResponsePizzaType = {
 
 
 const Home = () => {
-    const dispatch = useDispatch()
     //useSelectors
     const {sort,categoryId} = useSelector((state: RootState) => state.filter)
     const sortType = sort.sortProperty
@@ -47,9 +45,6 @@ const Home = () => {
 
     const fakeMapPizzas = fakePizza.map((_, i) => <SkeletonPizzaBlock key={i}/>)
 
-    const onClickCategory = (i: number) => {
-        dispatch(setCategoryId(i))
-    }
     useEffect(() => {
         setISLoading(true)
 

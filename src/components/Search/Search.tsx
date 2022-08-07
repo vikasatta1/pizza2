@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useRef} from 'react';
 import {SearchContext} from '../../App';
 
 //@ts-ignore
@@ -7,7 +7,12 @@ import styles from './Search.module.scss'
 const SearchInput = () => {
 //@ts-ignore
     const {searchValue, setSearchValue} = React.useContext(SearchContext)
-
+const inputRef = useRef()
+    const onclickClear = () => {
+        setSearchValue('')
+        // @ts-ignore
+        inputRef.current.focus()
+    }
     return (
         <div className={styles.root}>
 
@@ -36,6 +41,8 @@ const SearchInput = () => {
             </svg>
 
             <input
+                //@ts-ignore
+                ref={inputRef}
                 className={styles.input}
                 placeholder={'Поиск пиццы...'}
                 value={searchValue}
@@ -43,9 +50,7 @@ const SearchInput = () => {
             {searchValue && <svg
 
                 className={styles.clearIcon}
-                onClick={() => {
-                    setSearchValue('')
-                }}
+                onClick={onclickClear}
                 version="1.1" viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
