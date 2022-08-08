@@ -1,12 +1,18 @@
 import React from 'react';
 type BottomProps = {
-    count:number
+    addedCount:number
+    countC:number
     countPlus:()=>void
+    onClickAddItem:()=>void
 }
 
-const Bottom = ({count,countPlus}:BottomProps) => {
+const Button = ({countC,countPlus,onClickAddItem,addedCount}:BottomProps) => {
+   const onClickHandler = () => {
+       onClickAddItem()
+       countPlus()
+    }
     return (
-        <div className="button button--outline button--add" onClick={countPlus}>
+        <div className="button button--outline button--add" onClick={onClickHandler}>
             <svg
                 width="12"
                 height="12"
@@ -20,9 +26,9 @@ const Bottom = ({count,countPlus}:BottomProps) => {
                 />
             </svg>
             <span>Добавить</span>
-            <i>{count}</i>
+            {addedCount > 0 && <i>{addedCount}</i>}
         </div>
     );
 };
 
-export default Bottom;
+export default Button;

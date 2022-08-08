@@ -1,22 +1,41 @@
 import React, {useState} from 'react';
-import Bottom from "../Bottom";
+import Button from "../Button";
+import {useDispatch, useSelector} from "react-redux";
+import {addItem} from "../../redux/slices/cartSlice";
+import {RootState} from "../../redux/store";
 
 
 type PizzaCardPropsType = {
+    id:number,
     title: string,
     price: number
     imageUrl: string
     sizes: Array<number>
     types: Array<number>
 }
+const typesName = ["тонкое", "традиционное"]
 
-const PizzaBlock = ({title, price, imageUrl, sizes, types}: PizzaCardPropsType) => {
-    const typesName = ["тонкое", "традиционное"]
-    const [size, setSize] = useState<number>(0)
-    const [dough, setDough] = useState<string>('')
+const PizzaBlock = ({id,title, price, imageUrl, sizes, types}: PizzaCardPropsType) => {
+    const dispatch = useDispatch()
+    const cartItem = useSelector((state:RootState) => state.cart.items.find((obj: { id: number; })=>obj.id === id))
+    const [activeSize, setActiveSize] = useState<number>(0)
+    const [activeType, setActiveType] = useState<number>(0)
     const [pizzaCount, setPizzaCount] = useState<number>(0)
+
+    const addedCount = cartItem ? cartItem.count : 0
     const countPlus = () => {
         setPizzaCount(pizzaCount + 1)
+    }
+    const onClickAdd = () => {
+        const item = {
+            id,
+            title,
+            price,
+            imageUrl,
+            type: typesName[activeType],
+            size: sizes[activeSize],
+        }
+        dispatch(addItem(item))
     }
 
 
@@ -32,23 +51,26 @@ const PizzaBlock = ({title, price, imageUrl, sizes, types}: PizzaCardPropsType) 
                 <div className="pizza-block__selector">
                     <ul>
                         {
-                            types.map(t => (
-                                <li key={t} className={dough === typesName[t] ? 'active' : ''}
-                                    onClick={() => setDough(typesName[t])}>{typesName[t]}</li>
+                            types.map((t) => (
+                                <li key={t} className={activeType === t ? 'active' : ''}
+                                    onClick={() => setActiveType(t)}>{typesName[t]}</li>
                             ))
                         }
                     </ul>
                     <ul>
-                        {sizes.map(s => (
-                            <li key={s} className={size === s ? 'active' : ''}
-                                onClick={() => setSize(s)}>{s} см.</li>
+                        {sizes.map((sizes,i) => (
+                            <li
+                                key={sizes}
+                                onClick={() => setActiveSize(i)}
+                                className={activeSize === i ? 'active' : ''}
+                                >{sizes} см.</li>
                         ))}
 
                     </ul>
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} руб.</div>
-                    <Bottom countPlus={countPlus} count={pizzaCount}/>
+                    <Button countPlus={countPlus} countC={pizzaCount} onClickAddItem={onClickAdd} addedCount={addedCount}/>
                 </div>
             </div>
         </div>

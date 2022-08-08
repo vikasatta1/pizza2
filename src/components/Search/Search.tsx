@@ -7,8 +7,8 @@ import styles from './Search.module.scss'
 
 const SearchInput = () => {
 //@ts-ignore
-    const {searchValue, setSearchValue} = React.useContext(SearchContext)
-    const inputRef = useRef()
+    const { setSearchValue} = React.useContext(SearchContext)
+    const inputRef = useRef<any>()
 const [value,setValue] = useState('')
 
     const updateSearchValue = useCallback(
@@ -26,7 +26,6 @@ const [value,setValue] = useState('')
     const onclickClear = () => {
         setValue('')
         setSearchValue('')
-        // @ts-ignore
         inputRef.current.focus()
     }
     return (
@@ -44,7 +43,6 @@ const [value,setValue] = useState('')
             </svg>
 
             <input
-                //@ts-ignore
                 ref={inputRef}
                 className={styles.input}
                 placeholder={'Поиск пиццы...'}

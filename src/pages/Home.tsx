@@ -14,7 +14,7 @@ import qs from 'qs'
 
 export type ResponsePizzaType = {
     category: number
-    id: string
+    id: number
     imageUrl: string
     price: number
     rating: number
@@ -44,7 +44,7 @@ const Home = () => {
             return true
         }
         return false
-    }).map(pizza => (< PizzaBlock {...pizza} key={pizza.id}/>))
+    }).map(pizza => (< PizzaBlock {...pizza} key={pizza.id} />))
     const fakeMapPizzas = fakePizza.map((_, i) => <SkeletonPizzaBlock key={i}/>)
     const onChangePagination = (num: any) => dispatch(setCurrentPage(num))
     const fetchPizzas = () => {
