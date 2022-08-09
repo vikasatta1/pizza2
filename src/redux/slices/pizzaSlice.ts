@@ -1,8 +1,20 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import axios from "axios";
+import {RootState} from "../store";
+
+export type ResponsePizzaType = {
+    category: number
+    id: number
+    imageUrl: string
+    price: number
+    rating: number
+    sizes: Array<number>
+    title: string
+    types: Array<number>
+}
 
 export interface pizzaState {
-    isLoading:'loading'| 'success'| 'error'
+    isLoading: 'loading' | 'success' | 'error'
 }
 
 type paramsType = {
@@ -14,15 +26,16 @@ type paramsType = {
 }
 export const fetchPizzas = createAsyncThunk(
     'pizza/fetchPizzasStatus',
-    async (params: paramsType) => {
+    async (params: paramsType, thunkApi) => {
         const {sortBy, order, category, search, currentPage} = params
         const {data} = await axios.get(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+
         return data
     })
 
 const initialState: any = {
     items: [],
-    status:'loading'
+    status: 'loading'
 }
 
 export const pizzaSlice = createSlice({
@@ -39,13 +52,15 @@ export const pizzaSlice = createSlice({
             state.items = action.payload
             state.status = 'success'
         }, //@ts-ignore
-        [fetchPizzas.rejected]: (state, ) => {
+        [fetchPizzas.rejected]: (state,) => {
             state.status = 'error'
             state.items = []
         },
 
     },
 })
+
+export const selectPizzaData = (state:RootState)=>state.pizza
 
 // Action creators are generated for each case reducer function
 export const {} = pizzaSlice.actions

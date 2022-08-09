@@ -1,7 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit'
+import {RootState} from "../store";
 
 
 export interface CounterState {
+    searchValue:string,
     categoryId: number
     currentPage: number
     sort: {
@@ -11,6 +13,7 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
+    searchValue:'',
     categoryId: 0,
     currentPage: 1,
     sort: {
@@ -26,6 +29,9 @@ export const filterSlice = createSlice({
         setCategoryId: (state, action) => {
             state.categoryId = action.payload
         },
+        setSearchValue: (state, action) => {
+            state.searchValue = action.payload
+        },
         setSort: (state, action) => {
             state.sort = action.payload
         },
@@ -40,8 +46,10 @@ export const filterSlice = createSlice({
         },
     },
 })
+export const selectSort = (state: RootState) => state.filter.sort
+export const selectFilter = (state: RootState) => state.filter
 
 // Action creators are generated for each case reducer function
-export const {setCategoryId, setSort, setCurrentPage,setFilters} = filterSlice.actions
+export const {setCategoryId, setSort, setCurrentPage,setFilters,setSearchValue} = filterSlice.actions
 
 export default filterSlice.reducer

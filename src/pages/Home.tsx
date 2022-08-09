@@ -1,28 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Categories from "../components/Categories";
 import Sort, {sortList} from "../components/Sort";
 import SkeletonPizzaBlock from "../components/pizzaBlock/SkeletonPizzaBlock";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Pagination from '../components/Pagination/Pagination';
-import {SearchContext} from '../App';
+
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../redux/store';
-import {setCurrentPage, setFilters} from "../redux/slices/filterSlice";
+import {selectFilter, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
 import {useNavigate} from "react-router-dom";
-
 import qs from 'qs'
-import {fetchPizzas} from "../redux/slices/pizzaSlice";
+import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
 
-export type ResponsePizzaType = {
-    category: number
-    id: number
-    imageUrl: string
-    price: number
-    rating: number
-    sizes: Array<number>
-    title: string
-    types: Array<number>
-}
 
 
 const Home = () => {
@@ -31,15 +19,13 @@ const Home = () => {
         const isSearch = useRef(false)
         const isMounted = useRef(false)
         //useSelectors
-        const {sort, categoryId, currentPage} = useSelector((state: RootState) => state.filter)
-        const {items, status} = useSelector((state: RootState) => state.pizza)
+        const {sort, categoryId, currentPage, searchValue} = useSelector(selectFilter)
+        const {items, status} = useSelector(selectPizzaData)
 
         const sortType = sort.sortProperty
 
-        //@ts-ignore
-        const {searchValue} = React.useContext(SearchContext)
         const fakePizza = [...new Array(10)]
-        //const [items, setItems] = useState<Array<ResponsePizzaType>>([])
+
         // @ts-ignore
         const pizzas = items.filter(obj => {
             if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
