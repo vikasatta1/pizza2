@@ -4,7 +4,7 @@ import {RootState} from "../store";
 
 export type ResponsePizzaType = {
     category: number
-    id: number
+    id: string
     imageUrl: string
     price: number
     rating: number

@@ -7,7 +7,7 @@ import Pagination from '../components/Pagination/Pagination';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {selectFilter, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
-import {useNavigate} from "react-router-dom";
+import {useNavigate,Link} from "react-router-dom";
 import qs from 'qs'
 import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
 
@@ -33,7 +33,7 @@ const Home = () => {
             }
             return false
             // @ts-ignore
-        }).map(pizza => (< PizzaBlock {...pizza} key={pizza.id}/>))
+        }).map(pizza => (<Link to={`pizza/${pizza.id}`} key={pizza.id}>< PizzaBlock {...pizza} /></Link>))
         const fakeMapPizzas = fakePizza.map((_, i) => <SkeletonPizzaBlock key={i}/>)
         const onChangePagination = (num: any) => dispatch(setCurrentPage(num))
 
