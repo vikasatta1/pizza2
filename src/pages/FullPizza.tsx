@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {useParams,useNavigate} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {ResponsePizzaType} from "../redux/slices/pizzaSlice";
-
-type PizzaPropsType = {
-    title: string
-    price: number
-    imageUrl: string
+type PizzaType = {
+    imageUrl:string
+    title:string
+    price:number
 }
-const FullPizza = () => {
+
+const FullPizza: React.FC = () => {
     const navigate = useNavigate()
-    const [pizza, setPizza] = useState<any>()
+    const [pizza, setPizza] = useState<PizzaType>()
     const {id} = useParams()
     useEffect(() => {
         async function fetchPizza() {

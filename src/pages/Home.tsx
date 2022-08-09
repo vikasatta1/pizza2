@@ -13,7 +13,7 @@ import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
 
 
 
-const Home = () => {
+const Home: React.FC = () => {
         const dispatch = useDispatch()
         const navigate = useNavigate()
         const isSearch = useRef(false)
@@ -33,7 +33,7 @@ const Home = () => {
             }
             return false
             // @ts-ignore
-        }).map(pizza => (<Link to={`pizza/${pizza.id}`} key={pizza.id}>< PizzaBlock {...pizza} /></Link>))
+        }).map(pizza => (< PizzaBlock {...pizza} key={pizza.id}/>))
         const fakeMapPizzas = fakePizza.map((_, i) => <SkeletonPizzaBlock key={i}/>)
         const onChangePagination = (num: any) => dispatch(setCurrentPage(num))
 
