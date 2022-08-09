@@ -1,32 +1,53 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import axios from "axios";
 
-export interface CounterState {
-    value: number
+export interface pizzaState {
+    isLoading:'loading'| 'success'| 'error'
 }
 
-const initialState: CounterState = {
-    value: 0,
+type paramsType = {
+    sortBy: string,
+    order: string,
+    category: string,
+    search: string,
+    currentPage: number
+}
+export const fetchPizzas = createAsyncThunk(
+    'pizza/fetchPizzasStatus',
+    async (params: paramsType) => {
+        const {sortBy, order, category, search, currentPage} = params
+        const {data} = await axios.get(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+        return data
+    })
+
+const initialState: any = {
+    items: [],
+    status:'loading'
 }
 
-export const counterSlice = createSlice({
-    name: 'counter',
+export const pizzaSlice = createSlice({
+    name: 'pizza',
     initialState,
-    reducers: {
-        increment: (state) => {
+    reducers: {},
+    extraReducers: {
+        //@ts-ignore
+        [fetchPizzas.pending]: (state) => {
+            state.status = 'loading'
+            state.items = []
+        }, //@ts-ignore
+        [fetchPizzas.fulfilled]: (state, action) => {
+            state.items = action.payload
+            state.status = 'success'
+        }, //@ts-ignore
+        [fetchPizzas.rejected]: (state, ) => {
+            state.status = 'error'
+            state.items = []
+        },
 
-            state.value += 1
-        },
-        decrement: (state) => {
-            state.value -= 1
-        },
-        incrementByAmount: (state, action: PayloadAction<number>) => {
-            state.value += action.payload
-        },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const {} = pizzaSlice.actions
 
-export default counterSlice.reducer
+export default pizzaSlice.reducer
