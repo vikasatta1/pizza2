@@ -30,8 +30,8 @@ export const cartSlice = createSlice({
             },0)
         },
         removeItem: (state, action) => {
-
-            state.items = state.items.filter((obj: { id: number }) => obj.id !== action.payload)
+          state.items = state.items.filter((obj: { id: number }) => obj.id !== action.payload)
+            //пофиксить чтоб при удалении пиццы из корзины уменьшалась общая стоимость
         },
         clearItems: (state) => {
             state.items = []
@@ -47,7 +47,7 @@ export const cartSlice = createSlice({
     },
 })
 export const selectCart = (state:RootState)=>state.cart
-export const selectCartItemById = (id:number)=> (state:RootState) => state.cart.items.find((obj: { id: number; })=>obj.id === id)
+export const selectCartItemById = (id:string)=> (state:RootState) => state.cart.items.find((obj: { id: string; })=>obj.id === id)
 // Action creators are generated for each case reducer function
 export const {addItem, removeItem, clearItems,minusItem} = cartSlice.actions
 

@@ -1,15 +1,12 @@
 import React from 'react';
 type BottomProps = {
     addedCount:number
-    countC:number
-    countPlus:()=>void
     onClickAddItem:()=>void
 }
 
-const Button = ({countC,countPlus,onClickAddItem,addedCount}:BottomProps) => {
+const Button = ({onClickAddItem,addedCount}:BottomProps) => {
    const onClickHandler = () => {
        onClickAddItem()
-       countPlus()
     }
     return (
         <div className="button button--outline button--add" onClick={onClickHandler}>

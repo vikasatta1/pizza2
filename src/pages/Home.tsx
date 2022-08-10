@@ -4,13 +4,11 @@ import Sort, {sortList} from "../components/Sort";
 import SkeletonPizzaBlock from "../components/pizzaBlock/SkeletonPizzaBlock";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Pagination from '../components/Pagination/Pagination';
-
 import {useDispatch, useSelector} from 'react-redux';
-import {selectFilter, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
-import {useNavigate,Link} from "react-router-dom";
+import {selectFilter, setCategoryId, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
+import {useNavigate} from "react-router-dom";
 import qs from 'qs'
 import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
-
 
 
 const Home: React.FC = () => {
@@ -35,7 +33,7 @@ const Home: React.FC = () => {
             // @ts-ignore
         }).map(pizza => (< PizzaBlock {...pizza} key={pizza.id}/>))
         const fakeMapPizzas = fakePizza.map((_, i) => <SkeletonPizzaBlock key={i}/>)
-        const onChangePagination = (num: any) => dispatch(setCurrentPage(num))
+        const onChangePagination = (num: number) => dispatch(setCurrentPage(num))
 
         const getPizzas = async () => {
             const sortBy = sortType.replace('-', '');
@@ -93,7 +91,7 @@ const Home: React.FC = () => {
         return (
             <div className="container">
                 <div className="content__top">
-                    <Categories/>
+                    <Categories value={categoryId}/>
                     <Sort/>
                 </div>
                 <h2 className="content__title">Все пиццы</h2>

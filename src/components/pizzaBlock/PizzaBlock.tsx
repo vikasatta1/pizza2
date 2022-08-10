@@ -6,26 +6,25 @@ import {Link} from "react-router-dom";
 
 
 type PizzaCardPropsType = {
-    id:number,
+    id: string,
     title: string,
     price: number
     imageUrl: string
     sizes: Array<number>
     types: Array<number>
+    rating:number
 }
 const typesName = ["тонкое", "традиционное"]
 
-const PizzaBlock= ({id,title, price, imageUrl, sizes, types}: PizzaCardPropsType) => {
+const PizzaBlock: React.FC<PizzaCardPropsType> = ({id, title, price, imageUrl, sizes, types, rating}) => {
     const dispatch = useDispatch()
     const cartItem = useSelector(selectCartItemById(id))
     const [activeSize, setActiveSize] = useState<number>(0)
     const [activeType, setActiveType] = useState<number>(0)
-    const [pizzaCount, setPizzaCount] = useState<number>(0)
+
 
     const addedCount = cartItem ? cartItem.count : 0
-    const countPlus = () => {
-        setPizzaCount(pizzaCount + 1)
-    }
+
     const onClickAdd = () => {
         const item = {
             id,
@@ -42,12 +41,12 @@ const PizzaBlock= ({id,title, price, imageUrl, sizes, types}: PizzaCardPropsType
     return (
         <div className={'pizza-block-wrapper'}>
             <div className="pizza-block">
-                <Link to={`pizza/${id}`} >
-                <img
-                    className="pizza-block__image"
-                    src={imageUrl}
-                    alt="Pizza"
-                />
+                <Link to={`pizza/${id}`}>
+                    <img
+                        className="pizza-block__image"
+                        src={imageUrl}
+                        alt="Pizza"
+                    />
                 </Link>
                 <h4 className="pizza-block__title">{title}</h4>
                 <div className="pizza-block__selector">
@@ -60,19 +59,19 @@ const PizzaBlock= ({id,title, price, imageUrl, sizes, types}: PizzaCardPropsType
                         }
                     </ul>
                     <ul>
-                        {sizes.map((sizes,i) => (
+                        {sizes.map((sizes, i) => (
                             <li
                                 key={sizes}
                                 onClick={() => setActiveSize(i)}
                                 className={activeSize === i ? 'active' : ''}
-                                >{sizes} см.</li>
+                            >{sizes} см.</li>
                         ))}
 
                     </ul>
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} руб.</div>
-                    <Button countPlus={countPlus} countC={pizzaCount} onClickAddItem={onClickAdd} addedCount={addedCount}/>
+                    <Button  onClickAddItem={onClickAdd} addedCount={addedCount}/>
                 </div>
             </div>
         </div>

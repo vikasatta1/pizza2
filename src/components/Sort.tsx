@@ -4,27 +4,24 @@ import {selectSort, setSort} from '../redux/slices/filterSlice';
 
 
 type sortValueType = { name: string, sortProperty: string }
-
-export const sortList = [
+export const sortList: Array<sortValueType> = [
     {name: 'популярности (DESC)', sortProperty: 'rating'},
     {name: 'популярности (ASC)', sortProperty: '-rating'},
     {name: 'цене (DESC)', sortProperty: 'price'},
     {name: 'цене (ASC)', sortProperty: '-price'},
     {name: 'алфавиту (DESC)', sortProperty: 'title'},
-    {name: 'алфавиту (ASC)', sortProperty: '-title'}
+    {name: 'алфавиту (ASC)', sortProperty: '-title'},
 ]
 
 const Sort = () => {
     const dispatch = useDispatch()
     const sortValue = useSelector(selectSort)
-    const sortRef = useRef<any>()
-
+    const sortRef = useRef<HTMLDivElement>(null)
     const [open, setOpen] = useState<boolean>(false)
     const onClilListItem = (obj: sortValueType) => {
         dispatch(setSort(obj))
         setOpen(false)
     }
-
     useEffect(() => {
         const handleClickOutside = (event: any) => {
             if (!event.path.includes(sortRef.current)) {
@@ -36,7 +33,6 @@ const Sort = () => {
             document.body.removeEventListener('click', handleClickOutside)
         }
     }, [])
-
     return (
         <div ref={sortRef} className="sort">
             <div className="sort__label">
@@ -70,7 +66,6 @@ const Sort = () => {
                     </ul>
                 </div>
             }
-
         </div>
     );
 };

@@ -2,20 +2,20 @@ import React from 'react';
 import {Link, useLocation} from "react-router-dom";
 import SearchInput from './Search/Search';
 import {useSelector} from "react-redux";
-
+import logoSvg from '../assets/pizza-logo.svg'
 import {selectCart} from "../redux/slices/cartSlice";
 
 
 const Header = () => {
     const {items,totalPrice} = useSelector(selectCart)
-    const totalCount = items.reduce((sum: any, item: { count: any; }) => sum + item.count,0)
+    const totalCount = items.reduce((sum: number, item: { count: any; }) => sum + item.count,0)
     const {pathname} = useLocation()
     return (
         <div className="header">
             <div className="container">
                 <Link to={'/'}>
                     <div className="header__logo">
-                        <img width="38" src='./img/pizza-logo.svg' alt="Pizza logo"/>
+                        <img width="38" src={logoSvg} alt="Pizza logo"/>
                         <div>
                             <h1>Dodo Pizza</h1>
                             <p>вай вай как вкусно</p>

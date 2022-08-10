@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {minusItem, addItem, removeItem} from "../redux/slices/cartSlice";
 
 type CartItemPropsType = {
-    id:number
+    id:string
     title:string
     price:number
     count:number
@@ -12,7 +12,7 @@ type CartItemPropsType = {
     size:number
 }
 
-const CartItem = ({id,title,price,count,imageUrl,type,size}:CartItemPropsType) => {
+const CartItem:React.FC<CartItemPropsType> = ({id,title,price,count,imageUrl,type,size}) => {
     const dispatch = useDispatch()
     const onClickPlus = () => {
         dispatch(addItem({id}))
@@ -47,7 +47,6 @@ const CartItem = ({id,title,price,count,imageUrl,type,size}:CartItemPropsType) =
                             d="M5.75998 5.92001L3.83998 5.92001L0.959977 5.92001C0.429817 5.92001 -2.29533e-05 5.49017 -2.29301e-05 4.96001C-2.2907e-05 4.42985 0.429817 4.00001 0.959977 4.00001L3.83998 4L5.75998 4.00001L8.63998 4.00001C9.17014 4.00001 9.59998 4.42985 9.59998 4.96001C9.59998 5.49017 9.17014 5.92001 8.63998 5.92001L5.75998 5.92001Z"
                             fill="#EB5A1E"/>
                     </svg>
-
                 </div>
                 <b>{count}</b>
                 <div className="button button--outline button--circle cart__item-count-plus"  onClick={onClickPlus}>
@@ -60,7 +59,6 @@ const CartItem = ({id,title,price,count,imageUrl,type,size}:CartItemPropsType) =
                             d="M5.75998 5.92001L3.83998 5.92001L0.959977 5.92001C0.429817 5.92001 -2.29533e-05 5.49017 -2.29301e-05 4.96001C-2.2907e-05 4.42985 0.429817 4.00001 0.959977 4.00001L3.83998 4L5.75998 4.00001L8.63998 4.00001C9.17014 4.00001 9.59998 4.42985 9.59998 4.96001C9.59998 5.49017 9.17014 5.92001 8.63998 5.92001L5.75998 5.92001Z"
                             fill="#EB5A1E"/>
                     </svg>
-
                 </div>
             </div>
             <div className="cart__item-price">
@@ -77,7 +75,6 @@ const CartItem = ({id,title,price,count,imageUrl,type,size}:CartItemPropsType) =
                             d="M5.75998 5.92001L3.83998 5.92001L0.959977 5.92001C0.429817 5.92001 -2.29533e-05 5.49017 -2.29301e-05 4.96001C-2.2907e-05 4.42985 0.429817 4.00001 0.959977 4.00001L3.83998 4L5.75998 4.00001L8.63998 4.00001C9.17014 4.00001 9.59998 4.42985 9.59998 4.96001C9.59998 5.49017 9.17014 5.92001 8.63998 5.92001L5.75998 5.92001Z"
                             fill="#EB5A1E"/>
                     </svg>
-
                 </div>
             </div>
         </div>
