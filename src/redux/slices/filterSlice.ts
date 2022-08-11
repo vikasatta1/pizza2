@@ -1,24 +1,31 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "../store";
 
-
-export interface CounterState {
-    searchValue:string,
+export enum SortPropertyEnum {
+    RATING_DESC = 'rating',
+    RATING_ASC = '-rating',
+    PRICE_DESC = 'price',
+    PRICE_ASC = '-price',
+    TITLE_DESC='title',
+    TITLE_ASC= '-title',
+}
+export type SortType = {
+    name: string
+    sortProperty: SortPropertyEnum
+}
+export interface FilterState {
+    searchValue: string,
     categoryId: number
     currentPage: number
-    sort: {
-        name: string
-        sortProperty: string
-    }
+    sort: SortType
 }
-
-const initialState: CounterState = {
-    searchValue:'',
+const initialState: FilterState = {
+    searchValue: '',
     categoryId: 0,
     currentPage: 1,
     sort: {
         name: 'популярности',
-        sortProperty: 'rating',
+        sortProperty: SortPropertyEnum.RATING_DESC,//'price'
     }
 }
 
@@ -26,19 +33,19 @@ export const filterSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-        setCategoryId: (state, action) => {
+        setCategoryId: (state, action: PayloadAction<number>) => {
             state.categoryId = action.payload
         },
-        setSearchValue: (state, action) => {
+        setSearchValue: (state, action: PayloadAction<string>) => {
             state.searchValue = action.payload
         },
-        setSort: (state, action) => {
+        setSort: (state, action: PayloadAction<SortType>) => {
             state.sort = action.payload
         },
-        setCurrentPage: (state, action) => {
+        setCurrentPage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload
         },
-        setFilters: (state, action) => {
+        setFilters: (state, action: PayloadAction<any>) => {
             state.sort = action.payload.sort
             state.currentPage = Number(action.payload.currentPage)
             state.categoryId = Number(action.payload.categoryId)
@@ -50,6 +57,6 @@ export const selectSort = (state: RootState) => state.filter.sort
 export const selectFilter = (state: RootState) => state.filter
 
 // Action creators are generated for each case reducer function
-export const {setCategoryId, setSort, setCurrentPage,setFilters,setSearchValue} = filterSlice.actions
+export const {setCategoryId, setSort, setCurrentPage, setFilters, setSearchValue} = filterSlice.actions
 
 export default filterSlice.reducer

@@ -4,15 +4,16 @@ import Sort, {sortList} from "../components/Sort";
 import SkeletonPizzaBlock from "../components/pizzaBlock/SkeletonPizzaBlock";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Pagination from '../components/Pagination/Pagination';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectFilter, setCategoryId, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
+import {useSelector} from 'react-redux';
+import {selectFilter, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
 import {useNavigate} from "react-router-dom";
 import qs from 'qs'
 import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
+import {useAppDispatch} from "../redux/store";
 
 
 const Home: React.FC = () => {
-        const dispatch = useDispatch()
+        const dispatch = useAppDispatch()
         const navigate = useNavigate()
         const isSearch = useRef(false)
         const isMounted = useRef(false)
@@ -41,7 +42,6 @@ const Home: React.FC = () => {
             const category = categoryId > 0 ? `category=${categoryId}` : '';
             const search = searchValue ? `&search=${searchValue}` : '';
 
-            // @ts-ignore
             dispatch(fetchPizzas({
                 sortBy,
                 order,
@@ -51,11 +51,11 @@ const Home: React.FC = () => {
             }))
             window.scrollTo(0, 0)
         }
-        //useEffects
-        useEffect(() => {
+        //useEffects парсим при первом рендере
+  /*      useEffect(() => {
             if (window.location.search) {
                 const params = qs.parse(window.location.search.substring(1))
-                const sort = sortList.find(obj => obj.sortProperty === params.sortProperty)
+                const sort = sortList.find(obj => obj.sortProperty === params.sortBy)//sortProperty
                 dispatch(setFilters({
                         ...params,
                         sort
@@ -75,7 +75,10 @@ const Home: React.FC = () => {
                 navigate(`?${queryString}`)
             }
             isMounted.current = true
-        }, [categoryId, sortType, currentPage])
+        }, [categoryId, sortType, currentPage,searchValue])*/
+
+
+
         //если был первый рендер, то запрашиваем пиццы
         useEffect(() => {
             window.scrollTo(0, 0)
@@ -91,7 +94,7 @@ const Home: React.FC = () => {
         return (
             <div className="container">
                 <div className="content__top">
-                    <Categories value={categoryId}/>
+                    <Categories />
                     <Sort/>
                 </div>
                 <h2 className="content__title">Все пиццы</h2>

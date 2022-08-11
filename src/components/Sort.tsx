@@ -1,16 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectSort, setSort} from '../redux/slices/filterSlice';
+import {selectSort, setSort, SortPropertyEnum} from '../redux/slices/filterSlice';
 
 
-type sortValueType = { name: string, sortProperty: string }
+type sortValueType = {
+    name: string,
+    sortProperty: SortPropertyEnum
+} //string
 export const sortList: Array<sortValueType> = [
-    {name: 'популярности (DESC)', sortProperty: 'rating'},
-    {name: 'популярности (ASC)', sortProperty: '-rating'},
-    {name: 'цене (DESC)', sortProperty: 'price'},
-    {name: 'цене (ASC)', sortProperty: '-price'},
-    {name: 'алфавиту (DESC)', sortProperty: 'title'},
-    {name: 'алфавиту (ASC)', sortProperty: '-title'},
+    {name: 'популярности (DESC)', sortProperty: SortPropertyEnum.RATING_DESC},
+    {name: 'популярности (ASC)', sortProperty: SortPropertyEnum.RATING_ASC},
+    {name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC},
+    {name: 'цене (ASC)', sortProperty: SortPropertyEnum.PRICE_ASC},
+    {name: 'алфавиту (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC},
+    {name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC},
 ]
 
 const Sort = () => {
@@ -23,8 +26,9 @@ const Sort = () => {
         setOpen(false)
     }
     useEffect(() => {
-        const handleClickOutside = (event: any) => {
-            if (!event.path.includes(sortRef.current)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            const _event = event as MouseEvent & { path: Node[] }
+            if (sortRef.current && !_event.path.includes(sortRef.current)) {
                 setOpen(false)
             }
         }

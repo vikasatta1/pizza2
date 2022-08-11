@@ -1,12 +1,21 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "../store";
-
-
-export interface CartState {
-
+export type CartItem = {
+    id:string
+    title:string
+    price:number
+    imageUrl:string
+    type:string
+    size:number
+    count:number
 }
 
-const initialState:any = {
+export interface CartState {
+    totalPrice:number
+    items:Array<CartItem>
+}
+
+const initialState:CartState = {
     totalPrice: 0,
     items: []
 }
@@ -16,7 +25,7 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem: (state, action) => {
-            const findItem = state.items.find((obj: { id: number }) => obj.id === action.payload.id)
+            const findItem = state.items.find((obj) => obj.id === action.payload.id)
             if (findItem) {
                 findItem.count++
             } else{
@@ -25,24 +34,25 @@ export const cartSlice = createSlice({
                     count:1
                 })
             }
-            state.totalPrice = state.items.reduce((sum: any, obj: { price: any ,count:number})=>{
+            state.totalPrice = state.items.reduce((sum: any, obj:any)=>{
                 return (obj.price * obj.count) + sum
             },0)
         },
-        removeItem: (state, action) => {
-          state.items = state.items.filter((obj: { id: number }) => obj.id !== action.payload)
+        removeItem: (state, action:PayloadAction<string>) => {
+          state.items = state.items.filter((obj) => obj.id !== action.payload)
             //пофиксить чтоб при удалении пиццы из корзины уменьшалась общая стоимость
         },
         clearItems: (state) => {
             state.items = []
             state.totalPrice = 0
         },
-        minusItem:(state, action)=>{
-            const findItem = state.items.find((obj: { id: number }) => obj.id === action.payload)
+        minusItem:(state, action:PayloadAction<string>)=>{
+            const findItem = state.items.find((obj) => obj.id === action.payload)
             if (findItem) {
                 findItem.count--
+                state.totalPrice -= findItem.price
             }
-            state.totalPrice -= findItem.price
+
         }
     },
 })

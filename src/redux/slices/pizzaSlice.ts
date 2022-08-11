@@ -1,68 +1,77 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import axios from "axios";
 import {RootState} from "../store";
+import {SortType} from "./filterSlice";
 
-export type ResponsePizzaType = {
-    category: number
+enum Status {
+    LOADING = 'loading',
+    SUCCESS = 'success',
+    ERROR = 'error',
+}
+
+export type Pizza = {
     id: string
-    imageUrl: string
-    price: number
-    rating: number
-    sizes: Array<number>
     title: string
-    types: Array<number>
+    price: number
+    imageUrl: string
+    types: number[]
+    sizes: number
+    rating: number
 }
 
 export interface pizzaState {
-    isLoading: 'loading' | 'success' | 'error'
+    items: Pizza[]
+    status: Status
 }
 
-type paramsType = {
-    sortBy: string,
-    order: string,
-    category: string,
-    search: string,
-    currentPage: number
+
+const initialState: pizzaState = {
+    items: [],
+    status: Status.LOADING
+}
+
+export type SearchPizzaParams = {
+
+    sortBy: string,//
+    order: string, category: string, search: string, currentPage: number
 }
 export const fetchPizzas = createAsyncThunk(
     'pizza/fetchPizzasStatus',
-    async (params: paramsType, thunkApi) => {
+    async (params: SearchPizzaParams) => {
         const {sortBy, order, category, search, currentPage} = params
-        const {data} = await axios.get(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+        const {data} = await axios.get<Pizza[]>(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
 
         return data
     })
 
-const initialState: any = {
-    items: [],
-    status: 'loading'
-}
 
 export const pizzaSlice = createSlice({
     name: 'pizza',
     initialState,
-    reducers: {},
-    extraReducers: {
-        //@ts-ignore
-        [fetchPizzas.pending]: (state) => {
-            state.status = 'loading'
-            state.items = []
-        }, //@ts-ignore
-        [fetchPizzas.fulfilled]: (state, action) => {
+    reducers: {
+        setItems(state, action: PayloadAction<Pizza[]>) {
             state.items = action.payload
-            state.status = 'success'
-        }, //@ts-ignore
-        [fetchPizzas.rejected]: (state,) => {
-            state.status = 'error'
-            state.items = []
-        },
-
+        }
     },
+    extraReducers: (builder) => {
+        builder.addCase(fetchPizzas.pending, (state) => {
+            state.status = Status.LOADING
+            state.items = []
+        });
+        builder.addCase(fetchPizzas.fulfilled, (state, action) => {
+            state.status = Status.SUCCESS
+            state.items = action.payload
+        });
+        builder.addCase(fetchPizzas.rejected, (state) => {
+            state.status = Status.ERROR
+            state.items = []
+        });
+    }
 })
 
-export const selectPizzaData = (state:RootState)=>state.pizza
+export const selectPizzaData = (state: RootState) => state.pizza
 
-// Action creators are generated for each case reducer function
-export const {} = pizzaSlice.actions
+
+export const {setItems} = pizzaSlice.actions
 
 export default pizzaSlice.reducer
