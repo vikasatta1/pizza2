@@ -1,11 +1,11 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import Categories from "../components/Categories";
 import Sort, {sortList} from "../components/Sort";
 import SkeletonPizzaBlock from "../components/pizzaBlock/SkeletonPizzaBlock";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Pagination from '../components/Pagination/Pagination';
 import {useSelector} from 'react-redux';
-import {selectFilter, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
+import {selectFilter, setCategoryId, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
 import {useNavigate} from "react-router-dom";
 import qs from 'qs'
 import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
@@ -25,7 +25,6 @@ const Home: React.FC = () => {
 
         const fakePizza = [...new Array(10)]
 
-        // @ts-ignore
         const pizzas = items.filter(obj => {
             if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
                 return true
@@ -33,9 +32,11 @@ const Home: React.FC = () => {
             return false
             // @ts-ignore
         }).map(pizza => (< PizzaBlock {...pizza} key={pizza.id}/>))
-        const fakeMapPizzas = fakePizza.map((_, i) => <SkeletonPizzaBlock key={i}/>)
-        const onChangePagination = (num: number) => dispatch(setCurrentPage(num))
 
+        const fakeMapPizzas = fakePizza.map((_, i) => <SkeletonPizzaBlock key={i}/>)
+
+        const onChangePagination = (num: number) => dispatch(setCurrentPage(num))
+        const onChangeCategoryId = useCallback((idx: number) => dispatch(setCategoryId(idx)),[])
         const getPizzas = async () => {
             const sortBy = sortType.replace('-', '');
             const order = sortType.includes('-') ? 'asc' : 'desc'
@@ -52,31 +53,30 @@ const Home: React.FC = () => {
             window.scrollTo(0, 0)
         }
         //useEffects парсим при первом рендере
-  /*      useEffect(() => {
-            if (window.location.search) {
-                const params = qs.parse(window.location.search.substring(1))
-                const sort = sortList.find(obj => obj.sortProperty === params.sortBy)//sortProperty
-                dispatch(setFilters({
-                        ...params,
-                        sort
-                    }),
-                );
-                isSearch.current = true
-            }
-        }, [])
-        //если изменили параметры и был первый рендер
-        useEffect(() => {
-            if (isMounted.current) {
-                const queryString = qs.stringify({
-                    sortProperty: sort.sortProperty,
-                    categoryId,
-                    currentPage,
-                })
-                navigate(`?${queryString}`)
-            }
-            isMounted.current = true
-        }, [categoryId, sortType, currentPage,searchValue])*/
-
+        /*      useEffect(() => {
+                  if (window.location.search) {
+                      const params = qs.parse(window.location.search.substring(1))
+                      const sort = sortList.find(obj => obj.sortProperty === params.sortBy)//sortProperty
+                      dispatch(setFilters({
+                              ...params,
+                              sort
+                          }),
+                      );
+                      isSearch.current = true
+                  }
+              }, [])
+              //если изменили параметры и был первый рендер
+              useEffect(() => {
+                  if (isMounted.current) {
+                      const queryString = qs.stringify({
+                          sortProperty: sort.sortProperty,
+                          categoryId,
+                          currentPage,
+                      })
+                      navigate(`?${queryString}`)
+                  }
+                  isMounted.current = true
+              }, [categoryId, sortType, currentPage,searchValue])*/
 
 
         //если был первый рендер, то запрашиваем пиццы
@@ -94,8 +94,8 @@ const Home: React.FC = () => {
         return (
             <div className="container">
                 <div className="content__top">
-                    <Categories />
-                    <Sort/>
+                    <Categories onChangeCategoryId={onChangeCategoryId} value={categoryId}/>
+                    <Sort value={sort}/>
                 </div>
                 <h2 className="content__title">Все пиццы</h2>
                 {
@@ -111,7 +111,6 @@ const Home: React.FC = () => {
                             {status === 'loading' ? fakeMapPizzas : pizzas}
                         </div>)
                 }
-
                 <Pagination currentPage={currentPage} onChangePage={onChangePagination}/>
             </div>
         );

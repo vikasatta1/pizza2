@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectSort, setSort, SortPropertyEnum} from '../redux/slices/filterSlice';
+import {selectSort, setSort, SortPropertyEnum, SortType} from '../redux/slices/filterSlice';
 
 
 type sortValueType = {
@@ -15,10 +15,12 @@ export const sortList: Array<sortValueType> = [
     {name: 'алфавиту (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC},
     {name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC},
 ]
+type SortProps={
+    value:SortType
+}
 
-const Sort = () => {
+const Sort:React.FC<SortProps> = React.memo(({value}) => {
     const dispatch = useDispatch()
-    const sortValue = useSelector(selectSort)
     const sortRef = useRef<HTMLDivElement>(null)
     const [open, setOpen] = useState<boolean>(false)
     const onClilListItem = (obj: sortValueType) => {
@@ -52,7 +54,7 @@ const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setOpen(!open)}>{sortValue.name}</span>
+                <span onClick={() => setOpen(!open)}>{value.name}</span>
             </div>
             {
                 open &&
@@ -61,7 +63,7 @@ const Sort = () => {
                         {
                             sortList.map((obj, i) => (
                                 <li key={i}
-                                    className={sortValue.sortProperty === obj.sortProperty ? "active" : ''}
+                                    className={value.sortProperty === obj.sortProperty ? "active" : ''}
                                     onClick={() => onClilListItem(obj)}>
                                     {obj.name}
                                 </li>
@@ -72,6 +74,6 @@ const Sort = () => {
             }
         </div>
     );
-};
+});
 
 export default Sort;
