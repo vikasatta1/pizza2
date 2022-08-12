@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Button from "../Button";
-import { useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {useAppDispatch} from "../../redux/store";
 import {CartItem} from "../../redux/cart/types";
@@ -15,28 +15,37 @@ type PizzaCardPropsType = {
     imageUrl: string
     sizes: Array<number>
     types: Array<number>
-    rating:number
+    rating: number
 }
 const typesName = ["тонкое", "традиционное"]
 
-const PizzaBlock: React.FC<PizzaCardPropsType> = ({id, title, price, imageUrl, sizes, types, rating}) => {
+const PizzaBlock: React.FC<PizzaCardPropsType> = ({
+                                                      id,
+                                                      title,
+                                                      price,
+                                                      imageUrl,
+                                                      sizes,
+                                                      types,
+                                                      rating
+                                                  }) => {
     const dispatch = useAppDispatch()
     const cartItem = useSelector(selectCartItemById(id))
-    const [activeSize, setActiveSize] = useState<number>(0)
     const [activeType, setActiveType] = useState<number>(0)
+    const [activeSize, setActiveSize] = useState<number>(0)
+
 
 
     const addedCount = cartItem ? cartItem.count : 0
 
     const onClickAdd = () => {
-        const item:CartItem = {
+        const item: CartItem = {
             id,
             title,
             price,
             imageUrl,
             type: typesName[activeType],
             size: sizes[activeSize],
-            count:0
+            count: 0
         }
         dispatch(addItem(item))
     }
@@ -52,7 +61,7 @@ const PizzaBlock: React.FC<PizzaCardPropsType> = ({id, title, price, imageUrl, s
                         alt="Pizza"
                     />
 
-                <h4 className="pizza-block__title">{title}</h4>
+                    <h4 className="pizza-block__title">{title}</h4>
                 </Link>
                 <div className="pizza-block__selector">
                     <ul>
@@ -76,7 +85,7 @@ const PizzaBlock: React.FC<PizzaCardPropsType> = ({id, title, price, imageUrl, s
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} руб.</div>
-                    <Button  onClickAddItem={onClickAdd} addedCount={addedCount}/>
+                    <Button onClickAddItem={onClickAdd} addedCount={addedCount}/>
                 </div>
             </div>
         </div>
