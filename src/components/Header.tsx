@@ -18,7 +18,7 @@ const Header = () => {
                         <img width="38" src={logoSvg} alt="Pizza logo"/>
                         <div>
                             <h1>Dodo Pizza</h1>
-                            <p>вай вай как вкусно</p>
+                            <p>кликни, чтоб сбить URL и загрузить пиццы</p>
                         </div>
                     </div>
                 </Link>
