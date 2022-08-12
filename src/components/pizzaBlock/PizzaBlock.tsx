@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import Button from "../Button";
-import {useDispatch, useSelector} from "react-redux";
-import {addItem, CartItem, selectCartItemById} from "../../redux/slices/cartSlice";
+import { useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {useAppDispatch} from "../../redux/store";
+import {CartItem} from "../../redux/cart/types";
+import {selectCartItemById} from "../../redux/cart/selectors";
+import {addItem} from "../../redux/cart/slice";
 
 
 type PizzaCardPropsType = {

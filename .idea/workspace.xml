@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd37373-cbc1-4887-9fbf-ef99c63b02ae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/CartEmpty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartEmpty.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sort.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sort.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/cartSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/cartSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/filterSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/filterSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/pizzaSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/pizzaSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +91,8 @@
       <workItem from="1659688829159" duration="14865000" />
       <workItem from="1659807332239" duration="8579000" />
       <workItem from="1660168320334" duration="58000" />
+      <workItem from="1660313545288" duration="5000" />
+      <workItem from="1660313621141" duration="16000" />
     </task>
     <task id="LOCAL-00001" summary="useEffect,Skeleton">
       <created>1659528831278</created>
